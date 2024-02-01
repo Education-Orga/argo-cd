@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/your-username/your-traefik-repo.git'
+    path: 'path/to/your/traefik/configuration'
+    targetRevision: HEAD # oder einen spezifischen Branch, Tag, Commit
+  destination:
+    server: 'https://kubernetes.default.svc' # Die API-URL Ihres "edge-cluster"
+    namespace: traefik # Der Namespace, in dem Traefik bereitgestellt werden soll
+  syncPolicy:
+    automated:
+      prune: true # Entfernt Ressourcen, die nicht im Repository definiert sind
+      selfHeal: true # Korrigiert Abweichungen automatisch
