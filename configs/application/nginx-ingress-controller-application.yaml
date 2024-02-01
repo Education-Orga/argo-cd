@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-ingress
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/your-username/your-nginx-ingress-repo.git'
+    path: 'path/to/your/nginx-ingress/configuration'
+    targetRevision: HEAD 
+  destination:
+    server: 'https://kubernetes.default.svc' 
+    namespace: nginx-ingress 
+  syncPolicy:
+    automated:
+      prune: true 
+      selfHeal: true 

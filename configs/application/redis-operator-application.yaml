@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: redis
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/your-username/your-redis-repo.git'
+    path: 'path/to/your/redis/configuration'
+    targetRevision: HEAD 
+  destination:
+    server: 'https://kubernetes.default.svc' 
+    namespace: redis 
+  syncPolicy:
+    automated:
+      prune: true 
+      selfHeal: true 
